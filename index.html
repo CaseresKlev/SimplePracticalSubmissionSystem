@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+        <script src="jquery.js"></script>
+        <style>
+            xmp{
+                background-color: black;
+                color: white;
+            }
+
+            .fixedElement {
+                background-color: #feae02;
+                position:fixed;
+                top:0;
+                right: 0;
+                width:100%;
+                z-index:100;
+                color: rgb(0, 0, 0);
+                padding: 0.5em;
+            }
+
+            #output{
+                /* border: 1px solid red; */
+                border: 1px solid;
+  padding: 10px;
+  box-shadow: 5px 10px rgb(187, 178, 178);
+            }
+        </style>
+        <script>
+            function moveScroller() {
+                var $anchor = $("#scroller-anchor");
+                var $scroller = $('#scroller');
+
+                var move = function() {
+                    var st = $(window).scrollTop();
+                    var ot = $anchor.offset().top;
+                    if(st > ot) {
+                        $scroller.css({
+                            position: "fixed",
+                            top: "0px"
+                        });
+                    } else {
+                        $scroller.css({
+                            position: "relative",
+                            top: ""
+                        });
+                    }
+                };
+                $(window).scroll(move);
+                move();
+            }
+        </script>
+    </head>
+<body>
+
+    <div id="sidebar" class="fixedElement" style="width:200px;"> 
+        <div id="scroller-anchor"></div> 
+        <div id="scroller" style="margin-top:10px; width:270px"> 
+          <h2>
+            Remaining Time:
+          </h2>
+          <h1 id="time"></h1> 
+        </div>
+      </div>
+      
+      <script type="text/javascript"> 
+        $(function() {
+          moveScroller();
+        });
+      </script> 
+    <!-- <h3><a href="index.html">Home</a> &ensp; <a href="submission.html">Submit your work</a> &ensp; <a href="key.html">Key</a> &ensp; <a href="practical-t214/">Download My Work</a></h3>
+    <h1>HTML - PRACTICAL</h1> -->
+    <!-- <iframe src="M2 - L1 Practical.pdf" width="100%" height="900px">
+    </iframe> -->
+    <h3>
+        <a href="index.html">Home</a> &ensp; 
+        <a href="submission.html">Submit your work</a> &ensp; 
+        <!-- <a href="servertime.php" target="_blank">Check Server Time</a> &ensp;</h3> -->
+
+    <H1>Module 3 Practical Exam</H1>
+    <h2>Instructions:</h2>
+    <p>For this practical exam, the HTML and CSS will be provided to you by your instructor. <br>
+        Download and open the project folder in your code editor. Download the file <a href="JS and JQuery Practical.zip" target="_blank">here.</a><br><br>
+         Your task is to supply the Javascript or Jquery in order to  
+        perform the CRUDS functions: <br>
+        <ul>
+            <li>CREATE student Data and add to the array</li>
+            <li>RETRIEVE updated student data from the array and display it in the table</li>
+            <li>UPDATE the existing student data on the array based on thier primary key which is the STUDENT ID</li>
+            <li>DELETE the existing student data based on the STUDENT ID or ARRAY INDEX</li>
+            <li>SEARCH student data based on thier primary key which is the STUDENT ID</li>
+        </ul>
+        <br>
+        <!-- <img src="output.png" id="output" alt="ouput">
+        <br>
+        <br>
+        The CSS was provided, all you need is to supply the HTML with corresponding 
+        HTML Tags, CLASS and ID of the HTML elements used. <br> -->
+        <strong style="background-color: RED; color: white">NO HTML or CSS SHOULD BE ADDED!</strong>
+        <br>
+        <br>
+    </p>
+    <h2>Submission:</h2>
+    <p>
+        Once done submit your final output with the following format: <br>
+        <em style="background-color: red; color: white;">[CLASS-CODE]_[GROUP-NUMBER]_[ROLE EX: LEADER or MEMBER]_[SURENAME]_MODULE3_PRACTICAL.zip</em><br>
+        Example file name format:
+        <br>
+        <ul>
+            <li>T187_GROUP-2_LEADER_ABLER_MODULE3_PRACTICAL.zip</li>
+            <li>T187_GROUP-2_MEMBER_MARIMON_MODULE3_PRACTICAL.zip</li>
+        </ul>
+        
+        <br>
+
+        Use the submission link above. Be sure you to check your output first before submission.
+        <br>
+    </p>
+    <p>
+        <strong style="background-color: red; color: white">Remember, this is timed practical exam good for 1 Hour and 45mins.
+            <br>
+            You cannot upload once the time has ended.
+        </strong>
+    </p>
+    
+
+    <script>
+        var hour, mins, secs;
+
+        function displayTime(data){
+            //const arrData = data.split(":");
+            //console.log(arrData);
+            console.log(data[0].date);
+            var countDownDate = new Date(data[0].date).getTime();
+            var now = new Date(data[1].date).getTime();
+            // Update the count down every 1 second
+             var x = setInterval(function() {
+
+            // // Get today's date and time
+            
+
+            // // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+
+            // // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result in the element with id="demo"
+            document.getElementById("time").innerHTML =  hours + "h "
+            + minutes + "m " + seconds + "s ";
+
+            //now.setSeconds(now.getSeconds() + 1);
+            now = now +1000;
+            //document.getElementById("time").innerHTML = countDownDate;
+
+            // If the count down is finished, write some text
+            // if (distance < 0) {
+            // clearInterval(x);
+            // document.getElementById("demo").innerHTML = "EXPIRED";
+            // }
+            }, 1000);
+        }
+
+        setInterval(function(){ 
+            refreshTime()
+        }, 1000 * 60);
+        refreshTime();
+    function refreshTime(){
+        $.ajax({
+                type: "GET",
+                url: "getQuizConfig.php",
+                // data: somedata,
+                success: function(data){
+                    //alert(data);
+                    var resArr = data.split();
+                    const obj = JSON.parse(resArr[0]);
+                    console.log(obj);
+                    //document.getElementById("time").innerHTML = data;
+                    displayTime(obj);
+                }
+        });
+    }
+
+        
+    </script>
+    
+</body>
+</html>

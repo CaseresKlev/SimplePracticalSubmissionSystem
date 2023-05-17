@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jquery.js"></script>
+        <style>
+            xmp{
+                background-color: black;
+                color: white;
+            }
+
+            .fixedElement {
+                background-color: #feae02;
+                position:fixed;
+                top:0;
+                right: 0;
+                width:100%;
+                z-index:100;
+                color: rgb(0, 0, 0);
+                padding: 0.5em;
+            }
+
+            #output{
+                /* border: 1px solid red; */
+                border: 1px solid;
+  padding: 10px;
+  box-shadow: 5px 10px rgb(187, 178, 178);
+            }
+        </style>
+</head>
+<body>
+    <div id="sidebar" class="fixedElement" style="width:200px;"> 
+        <div id="scroller-anchor"></div> 
+        <div id="scroller" style="margin-top:10px; width:270px"> 
+          <h2>
+            Remaining Time:
+          </h2>
+          <h1 id="time"></h1> 
+        </div>
+      </div>
+      
+      <script type="text/javascript"> 
+        $(function() {
+          moveScroller();
+        });
+      </script> 
+
+<h3>
+    <a href="index.html">Home</a> &ensp; 
+    <a href="submission.html">Submit your work</a> &ensp; 
+    <!-- <a href="servertime.php" target="_blank">Check Server Time</a> &ensp; -->
+</h3>
+<h1>HTML - PRACTICAL</h1>
+<h3>Please upload your work. <b style="color: red;"> Only HTML format is allowed! </b></h3>
+<form action="upload.php" method="post" enctype="multipart/form-data">
+Choose your section:
+<select name="section" id="section" required>
+    <option value=""></option>
+    <option value="T187">Section A - T187</option>
+    <option value="T196">Section B - T196</option>
+    <option value="T205">Section C - T205</option>
+    <option value="T214">Section D - T214</option>
+</select>
+<br>
+<br>
+Select file:
+<input type="file" name="fileToUpload" id="fileToUpload" required>
+<br>
+<br>
+<input type="submit" value="Send" name="submit">
+</form>
+
+<script>
+    var hour, mins, secs;
+
+    function displayTime(data){
+        //const arrData = data.split(":");
+        //console.log(arrData);
+        console.log(data[0].date);
+        var countDownDate = new Date(data[0].date).getTime();
+        var now = new Date(data[1].date).getTime();
+        // Update the count down every 1 second
+         var x = setInterval(function() {
+
+        // // Get today's date and time
+        
+
+        // // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+
+        // // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the result in the element with id="demo"
+        document.getElementById("time").innerHTML =  hours + "h "
+        + minutes + "m " + seconds + "s ";
+
+        //now.setSeconds(now.getSeconds() + 1);
+        now = now +1000;
+        //document.getElementById("time").innerHTML = countDownDate;
+
+        // If the count down is finished, write some text
+        // if (distance < 0) {
+        // clearInterval(x);
+        // document.getElementById("demo").innerHTML = "EXPIRED";
+        // }
+        }, 1000);
+    }
+
+    setInterval(function(){ 
+        refreshTime()
+    }, 1000 * 60);
+    refreshTime();
+function refreshTime(){
+    $.ajax({
+            type: "GET",
+            url: "getQuizConfig.php",
+            // data: somedata,
+            success: function(data){
+                //alert(data);
+                var resArr = data.split();
+                const obj = JSON.parse(resArr[0]);
+                console.log(obj);
+                //document.getElementById("time").innerHTML = data;
+                displayTime(obj);
+            }
+    });
+}
+
+    
+</script>
+</body>
+</html>
+
